@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
-namespace Pokemons
+namespace WinForm_AppPoke
 {
     public partial class Form1 : Form
     {
         private List<Pokemons> listaPokemons;  //Creo el atribulo: --- listaPokemons ---, para capturar todo lo que lea de la DB y despues lo muestro o asigno en la DataGredView...
+        private List<Elemento> listaElemento;
+        
         public Form1()
         {
             InitializeComponent();
@@ -20,11 +24,31 @@ namespace Pokemons
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cargar();
+        }
+
+        private void cargar()
+        {
             PokemonsNegocio negocio = new PokemonsNegocio();
-            listaPokemons = negocio.listar();
-            dgvPokemons.DataSource = listaPokemons;
-            dgvPokemons.Columns["UrlImagen"].Visible = false;  //Oculto la columa --- UrlImagen ---
-            cargarImagen(listaPokemons[0].UrlImagen);
+
+            try
+            {
+                listaPokemons = negocio.listar();
+                dgvPokemons.DataSource = listaPokemons;
+                dgvPokemons.Columns["UrlImagen"].Visible = false;  //Oculto la columa --- UrlImagen ---
+                cargarImagen(listaPokemons[0].UrlImagen);
+
+                ElementoNegocio elementoNegocio = new ElementoNegocio();
+                //dgvElemento.DataSource = elementoNegocio.listar();
+
+                listaElemento = elementoNegocio.listar();
+                dgvElemento.DataSource = listaElemento;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
@@ -43,6 +67,13 @@ namespace Pokemons
 
                 pbxPokemons.Load("https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg");
             }
+        }
+
+        private void btnAgragar_Click(object sender, EventArgs e)
+        {
+            frmAgregarPokemon frmAgregarPokemon = new frmAgregarPokemon();
+            frmAgregarPokemon.ShowDialog();
+            cargar();
         }
     }
 }

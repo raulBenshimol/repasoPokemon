@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Pokemons.Properties
+namespace WinForm_AppPoke.Properties
 {
 
 
