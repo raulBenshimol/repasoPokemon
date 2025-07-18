@@ -10,6 +10,7 @@ namespace Dominio
     // Raul Benshimol 2...
     public class Pokemons
     {
+        public int Id { get; set; }
         [DisplayName("Número")]
         public int Numero { get; set; }
         public string Nombre { get; set; }
