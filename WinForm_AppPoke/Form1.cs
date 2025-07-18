@@ -155,6 +155,7 @@ namespace WinForm_AppPoke
             Pokemons seleccionado;
             try
             {
+
                 if (dgvPokemons.CurrentRow != null)
                 {
                         DialogResult respuesta = MessageBox.Show("¿Esta seguro el registro?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -175,6 +176,7 @@ namespace WinForm_AppPoke
                 else
                 {
                     MessageBox.Show("Para eliminar debe tener seleccionado un Pokémon...");
+
                 }
             }
             catch (Exception ex)
